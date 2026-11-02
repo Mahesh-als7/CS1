@@ -1,0 +1,4 @@
+Flask>=3.1,<4
+flask-cors>=5,<7
+scikit-learn>=1.8,<2
+joblib>=1.4

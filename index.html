@@ -1,0 +1,1568 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield | Machine Learning Security Lab</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #050d1b;
+    color: #e5f3ff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    padding: 25px 30px;
+    background: #081629;
+    border-bottom: 1px solid #123454;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #18cfff;
+}
+
+.logo span {
+    color: white;
+}
+
+header p {
+    color: #8faecb;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.status {
+    color: #42e6a4;
+    font-size: 13px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    min-height: calc(100vh - 100px);
+}
+
+nav {
+    background: #071426;
+    padding: 25px 12px;
+    border-right: 1px solid #123454;
+}
+
+nav h3 {
+    color: #6889a9;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin: 0 12px 18px;
+}
+
+nav a {
+    display: block;
+    padding: 14px 12px;
+    margin-bottom: 7px;
+    border-radius: 7px;
+    color: #a9c6e2;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover,
+nav a.active {
+    background: #102b47;
+    color: #24d3ff;
+}
+
+main {
+    padding: 28px;
+    min-width: 0;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #8ba8c5;
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+.section-title {
+    font-size: 17px;
+    margin-bottom: 16px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: linear-gradient(145deg, #0b1e33, #071426);
+    border: 1px solid #153b5b;
+    border-radius: 11px;
+    padding: 19px;
+    min-width: 0;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #93b1cf;
+    margin-bottom: 15px;
+}
+
+.stat-value {
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.stat-note {
+    color: #42e6a4;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.cyan { border-top: 3px solid #15ceff; }
+.red { border-top: 3px solid #ff526b; }
+.green { border-top: 3px solid #37e6a0; }
+.purple { border-top: 3px solid #a47aff; }
+
+.middle {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.bar-row {
+    margin: 19px 0;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 13px;
+    margin-bottom: 9px;
+}
+
+.bar {
+    height: 7px;
+    background: #142b43;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.phishing { width: 75%; background: #ff526b; }
+.links { width: 48%; background: #ffb347; }
+.passwords { width: 32%; background: #a47aff; }
+.other { width: 20%; background: #15ceff; }
+
+.alert {
+    padding: 13px 0;
+    border-bottom: 1px solid #18314a;
+    font-size: 13px;
+}
+
+.alert:last-child {
+    border-bottom: none;
+}
+
+.alert small {
+    display: block;
+    color: #8ba8c5;
+    margin-top: 6px;
+}
+
+.tag {
+    float: right;
+    color: #ff7788;
+    font-size: 11px;
+}
+
+.tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.tool {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tool:hover {
+    border-color: #15ceff;
+    transform: translateY(-3px);
+}
+
+.tool h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.tool p {
+    color: #93b1cf;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+button {
+    background: #0c9dc7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #18cfff;
+    color: #04101d;
+}
+
+footer {
+    padding: 20px 28px;
+    color: #7191ae;
+    border-top: 1px solid #15334e;
+    font-size: 12px;
+}
+
+#message {
+    color: #42e6a4;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.header-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: #42e6a4;
+    box-shadow: 0 0 10px #42e6a4;
+    animation: pulse 1.8s infinite;
+}
+.live-clock {
+    color: #6889a9;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-variant-numeric: tabular-nums;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px #42e6a4; }
+    50% { opacity: .45; box-shadow: 0 0 2px #42e6a4; }
+}
+.activity-feed {
+    margin-top: 14px;
+    border: 1px solid #153b5b;
+    background: #061222;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.feed-heading {
+    padding: 10px 12px;
+    color: #18cfff;
+    border-bottom: 1px solid #153b5b;
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+.feed-heading span:last-child {
+    color: #6889a9;
+    letter-spacing: 0;
+}
+#activityFeed {
+    list-style: none;
+    padding: 0 12px;
+    max-height: 190px;
+    overflow-y: auto;
+}
+#activityFeed li {
+    padding: 10px 0;
+    border-bottom: 1px solid #122b43;
+    color: #a9c6e2;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+#activityFeed li:last-child { border-bottom: none; }
+.feed-time { color: #6889a9; margin-right: 7px; font-variant-numeric: tabular-nums; }
+.feed-good { color: #42e6a4; }
+.feed-warn { color: #ffb347; }
+.feed-danger { color: #ff7788; }
+.lab-note {
+    color: #6889a9;
+    font-size: 11px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+@media (max-width: 950px) {
+    .layout { grid-template-columns: 1fr; }
+    nav {
+        border-right: none;
+        border-bottom: 1px solid #123454;
+    }
+    nav a { display: inline-block; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .header-status { align-items: flex-start; }
+    main { padding: 17px; }
+    .middle, .tools { grid-template-columns: 1fr; }
+    header { padding: 20px; }
+    h1 { font-size: 23px; }
+}
+
+/* CyberShield visual refresh */
+:root {
+    --bg: #080d1b;
+    --panel: rgba(17, 27, 50, .88);
+    --panel-2: #111d35;
+    --line: rgba(137, 164, 219, .16);
+    --muted: #93a4c5;
+    --text: #eef3ff;
+    --cyan: #4de2ff;
+    --violet: #a78bfa;
+    --green: #55e6ad;
+    --red: #ff6687;
+    --amber: #ffc46b;
+}
+html { scroll-behavior: smooth; }
+body {
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(64, 105, 214, .22), transparent 38%),
+      radial-gradient(ellipse at 92% 18%, rgba(132, 76, 219, .13), transparent 32%),
+      var(--bg);
+    color: var(--text);
+    letter-spacing: .01em;
+}
+header {
+    position: relative;
+    padding: 22px clamp(18px, 4vw, 54px);
+    background: rgba(9, 15, 31, .86);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(18px);
+}
+.logo { color: var(--cyan); font-size: 29px; letter-spacing: -.04em; }
+.logo span { color: #f4f0ff; }
+header p { color: var(--muted); }
+.status { color: var(--green); font-weight: 700; letter-spacing: .08em; }
+.layout { grid-template-columns: 225px minmax(0, 1fr); }
+nav {
+    background: rgba(10, 17, 35, .78);
+    border-right: 1px solid var(--line);
+    padding: 28px 14px;
+}
+nav h3, .eyebrow {
+    color: #8295bc;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .17em;
+}
+nav a {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #aebbd6;
+    transition: .2s ease;
+}
+nav a:hover, nav a.active {
+    color: #fff;
+    background: linear-gradient(100deg, rgba(77,226,255,.13), rgba(167,139,250,.12));
+    border-color: rgba(77,226,255,.2);
+    box-shadow: inset 3px 0 var(--cyan);
+}
+main { padding: clamp(20px, 3vw, 42px); max-width: 1600px; }
+h1 { font-size: clamp(26px, 3vw, 36px); letter-spacing: -.04em; }
+.subtitle { color: var(--muted); line-height: 1.65; }
+.section-title { font-size: 16px; letter-spacing: -.015em; }
+.card {
+    position: relative;
+    background: linear-gradient(145deg, rgba(22,34,62,.94), rgba(13,21,41,.96));
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 14px 36px rgba(0,0,0,.16);
+    padding: 21px;
+    overflow: hidden;
+}
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+    pointer-events: none;
+}
+.stats { gap: 16px; }
+.stats .card { min-height: 132px; }
+.cyan { border-top: 3px solid var(--cyan); }
+.red { border-top: 3px solid var(--red); }
+.green { border-top: 3px solid var(--green); }
+.purple { border-top: 3px solid var(--violet); }
+.stat-label { color: #9cadd0; letter-spacing: .09em; font-size: 10px; font-weight: 800; }
+.stat-value { font-size: 34px; letter-spacing: -.04em; }
+.stat-note { color: #8295b9; }
+.middle { gap: 16px; }
+.bar { height: 9px; background: #202d49; }
+.phishing { background: linear-gradient(90deg, #ff6687, #ff9b8a); }
+.links { background: linear-gradient(90deg, #ffc46b, #ffe19b); }
+.passwords { background: linear-gradient(90deg, #55e6ad, #4de2ff); }
+.other { background: linear-gradient(90deg, #a78bfa, #d2a5ff); }
+.alert { border-bottom-color: var(--line); }
+.alert small { color: #8295b9; }
+.tools { gap: 16px; }
+.tool { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+.tool:hover { border-color: rgba(77,226,255,.45); transform: translateY(-3px); box-shadow: 0 18px 42px rgba(0,0,0,.25); }
+.tool h3 { font-size: 16px; margin-bottom: 9px; }
+.tool p { color: #a0afcc; }
+button {
+    background: linear-gradient(100deg, #287edb, #7658d8);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 9px;
+    padding: 11px 16px;
+    box-shadow: 0 7px 18px rgba(58,91,202,.18);
+    transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+button:hover { background: linear-gradient(100deg, #43bce8, #9a7bfa); color: #08101f; transform: translateY(-1px); }
+button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+input, textarea {
+    color: var(--text) !important;
+    background: rgba(6,13,28,.78) !important;
+    border: 1px solid rgba(137,164,219,.25) !important;
+    border-radius: 10px !important;
+    outline: none;
+}
+input:focus, textarea:focus { border-color: rgba(77,226,255,.75) !important; box-shadow: 0 0 0 3px rgba(77,226,255,.1); }
+.activity-feed { background: rgba(5,11,25,.75); border-color: var(--line); border-radius: 11px; }
+.feed-heading { color: var(--cyan); border-bottom-color: var(--line); }
+#activityFeed li { border-bottom-color: rgba(137,164,219,.1); }
+footer { border-top-color: var(--line); color: #7485a8; }
+.visual-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; margin: 0 0 30px; }
+.visual-card { min-height: 300px; }
+.panel-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom: 12px; }
+.panel-head .section-title { margin: 6px 0 0; }
+.live-pill { display:inline-flex; align-items:center; gap:7px; color:var(--green); background:rgba(85,230,173,.09); border:1px solid rgba(85,230,173,.2); border-radius:30px; padding:6px 10px; font-size:10px; font-weight:800; letter-spacing:.12em; }
+.live-pill i, .pulse-dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); display:inline-block; }
+#scanTrend { display:block; width:100%; height:190px; }
+.chart-legend, .donut-legend { display:flex; align-items:center; justify-content:space-between; gap:12px; color:#899bbd; font-size:11px; margin-top:8px; }
+.chart-legend i, .donut-legend i { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; }
+.legend-cyan { background:var(--cyan); box-shadow:0 0 10px rgba(77,226,255,.5); }
+.legend-green { background:var(--green); }
+.legend-red { background:var(--red); }
+.donut-wrap { width:190px; height:190px; position:relative; margin: 3px auto 0; }
+#predictionDonut { width:190px; height:190px; }
+.donut-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; }
+.donut-center strong { font-size:27px; letter-spacing:-.04em; }
+.donut-center span { color:#8295b9; font-size:9px; letter-spacing:.15em; margin-top:3px; }
+.donut-legend { justify-content:center; gap:22px; }
+.donut-legend b { color:#eaf1ff; margin-left:4px; }
+#message { color:var(--green); }
+@media (max-width: 1050px) {
+  .layout { grid-template-columns:1fr; }
+  nav { border-right:0; border-bottom:1px solid var(--line); padding:14px; }
+  nav h3 { margin-bottom:10px; }
+  nav a { display:inline-block; padding:10px 12px; }
+}
+@media (max-width: 760px) {
+  .visual-grid, .middle, .tools { grid-template-columns:1fr; }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .header-status { align-items:flex-start; }
+}
+@media (max-width: 430px) {
+  .stats { grid-template-columns:1fr 1fr; gap:9px; }
+  .stats .card { padding:14px; }
+  .stat-value { font-size:27px; }
+  main { padding:16px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <div class="logo">⬡ Cyber<span>Shield</span></div>
+        <p>Interactive Cybersecurity &amp; Threat Detection Lab</p>
+    </div>
+    <div class="header-status">
+        <div class="status"><span class="pulse-dot"></span> SYSTEM READY</div>
+        <div class="live-clock" id="liveClock">LOCAL TIME --:--:--</div>
+    </div>
+</header>
+
+<div class="layout">
+
+<nav>
+    <h3>WORKSPACE</h3>
+    <a class="active" href="#overview">◈ Overview</a>
+    <a href="#phishing">✉ Phishing Lab</a>
+    <a href="#password">♙ Password Lab</a>
+    <a href="#encryption">⬡ Encryption Lab</a>
+    <a href="#alerts">▤ Threat Monitor</a>
+</nav>
+
+<main id="overview">
+
+    <h1>Security Overview</h1>
+    <p class="subtitle">
+        Welcome back, Analyst. Here's your security dashboard.
+    </p>
+
+    <div class="stats">
+        <div class="card cyan">
+            <div class="stat-label">TOTAL SCANS</div>
+            <div class="stat-value" id="scans">0</div>
+            <div class="stat-note">This browser session</div>
+        </div>
+
+        <div class="card red">
+            <div class="stat-label">THREATS DETECTED</div>
+            <div class="stat-value" id="threats">0</div>
+            <div class="stat-note">Medium- and high-risk scans</div>
+        </div>
+
+        <div class="card green">
+            <div class="stat-label">PHISHING PREDICTIONS</div>
+            <div class="stat-value" id="highRiskScans">0</div>
+            <div class="stat-note">Model classified as phishing</div>
+        </div>
+
+        <div class="card purple">
+            <div class="stat-label">LEGITIMATE PREDICTIONS</div>
+            <div class="stat-value" id="lowRiskRate">—</div>
+            <div class="stat-note">Model classified as legitimate</div>
+        </div>
+    </div>
+
+    <div class="middle">
+
+        <section class="card" id="threatDistribution">
+            <h2 class="section-title">Threat Distribution</h2>
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Phishing predictions</span><span id="highRiskPercent">0% (0)</span>
+                </div>
+                <div class="bar"><div class="fill phishing" id="highRiskBar" style="width:0%"></div></div>
+            </div>
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Uncertain / other</span><span id="mediumRiskPercent">0% (0)</span>
+                </div>
+                <div class="bar"><div class="fill links" id="mediumRiskBar" style="width:0%"></div></div>
+            </div>
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Legitimate predictions</span><span id="lowRiskPercent">0% (0)</span>
+                </div>
+                <div class="bar"><div class="fill passwords" id="lowRiskBar" style="width:0%"></div></div>
+            </div>
+
+            <p class="subtitle" id="distributionNote" style="margin:15px 0 0">
+                Scan messages to build a distribution from this browser session.
+            </p>
+        </section>
+
+        <section class="card" id="alerts">
+            <h2 class="section-title">Recent Alerts</h2>
+            <div id="recentAlertsList" aria-live="polite">
+                <p class="subtitle">No scans yet. Results will appear here after you analyse a message.</p>
+            </div>
+        </section>
+    </div>
+
+
+    <section class="visual-grid" aria-label="Live scan visualisations">
+        <div class="card visual-card">
+            <div class="panel-head">
+                <div>
+                    <span class="eyebrow">SESSION TELEMETRY</span>
+                    <h2 class="section-title">Live scan activity</h2>
+                </div>
+                <span class="live-pill"><i></i> LIVE</span>
+            </div>
+            <canvas id="scanTrend" height="190" aria-label="Chart of recent scan confidence"></canvas>
+            <div class="chart-legend"><span><i class="legend-cyan"></i> Confidence per scan</span><span id="trendCount">0 scans recorded</span></div>
+        </div>
+        <div class="card visual-card">
+            <div class="panel-head">
+                <div>
+                    <span class="eyebrow">LATEST MODEL OUTPUT</span>
+                    <h2 class="section-title">Prediction balance</h2>
+                </div>
+                <span class="eyebrow" id="latestModelLabel">AWAITING SCAN</span>
+            </div>
+            <div class="donut-wrap">
+                <canvas id="predictionDonut" width="190" height="190" aria-label="Latest legitimate and phishing probabilities"></canvas>
+                <div class="donut-center"><strong id="donutConfidence">—</strong><span>CONFIDENCE</span></div>
+            </div>
+            <div class="donut-legend">
+                <span><i class="legend-green"></i> Legitimate <b id="donutLegit">—</b></span>
+                <span><i class="legend-red"></i> Phishing <b id="donutPhish">—</b></span>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title">Security Labs</h2>
+
+    <div class="tools">
+
+        
+<section class="card tool" id="phishing">
+    <h3>✉ Phishing Detector</h3>
+
+    <p>
+        Paste a message to classify it using the locally trained machine-learning model.
+    </p>
+
+    <textarea
+        id="sampleMessage"
+        placeholder="Example: Your parcel is on hold. Pay the delivery fee to release it."
+        rows="5"
+        style="width:100%; margin-top:14px; padding:12px;
+        background:#071426; color:#e5f3ff; border:1px solid #153b5b;
+        border-radius:7px; resize:vertical; font-family:Arial;">
+    </textarea>
+
+    <p style="margin-top:10px;color:#42e6a4;font-size:11px;">● BROWSER ML MODEL · JavaScript inference · No backend required</p>
+    <button onclick="analyseMessage()">Analyse with ML Model →</button>
+
+    <div id="scanResult"
+         style="margin-top:15px; color:#93b1cf;
+         font-size:13px; line-height:1.7; white-space:pre-line;">
+        Your analysis results will appear here.
+    </div>
+
+    <div style="margin-top:18px;padding:15px;border:1px solid #153b5b;
+                border-radius:9px;background:#071426;">
+        <h4 style="color:#18cfff;margin-bottom:8px;">▤ Incident Report Generator</h4>
+        <p style="margin-bottom:10px;">Generate a shareable report from your latest phishing scan.</p>
+        <div id="reportPreview" style="font-size:12px;line-height:1.6;color:#93b1cf;white-space:pre-line;">
+            Run a phishing scan first. Your incident report will appear here.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" id="copyReportButton" onclick="copyIncidentReport()" disabled>Copy Report</button>
+            <button type="button" id="downloadReportButton" onclick="downloadIncidentReport()" disabled>Download .txt</button>
+        </div>
+        <p style="margin-top:10px;font-size:11px;color:#7191ae;">Predictions run in this browser using the trained Multinomial Naive Bayes model. Confidence is not proof that a message is safe or malicious.</p>
+    </div>
+</section>
+
+
+          <section class="card tool" id="password">
+    <h3>♙ Password Security Lab</h3>
+    <p>Test password strength with live security checks.</p>
+
+    <label for="passwordInput">Enter a test password</label>
+
+    <input
+        type="password"
+        id="passwordInput"
+        placeholder="Type a sample password..."
+        oninput="checkPassword()"
+        autocomplete="off"
+        style="width:100%;margin-top:12px;padding:12px;
+        background:#071426;color:#e5f3ff;border:1px solid #153b5b;
+        border-radius:7px;"
+    >
+
+    <label style="display:block;margin-top:12px;">
+        <input
+            type="checkbox"
+            id="showPassword"
+            onchange="togglePasswordVisibility()"
+        >
+        Show password
+    </label>
+
+    <div id="strengthLabel" style="margin-top:15px;">
+        Strength: Not tested
+    </div>
+
+    <div style="background:#243044;border-radius:8px;
+                height:10px;overflow:hidden;margin:12px 0;">
+        <div id="strengthBar"
+             style="height:100%;width:0%;background:#42e6a4;
+                    transition:width 0.3s;">
+        </div>
+    </div>
+
+    <div id="passwordChecks" style="line-height:1.8;">
+        Enter a password to begin the assessment.
+    </div>
+
+    <p style="margin-top:12px;">
+        Use a made-up password for this educational demo.
+        Nothing is sent to a server.
+    </p>
+
+        </section>
+
+      
+<section class="card tool" id="encryption">
+    <h3>⬡ Encryption &amp; Decryption Lab</h3>
+    <p>Protect a message with AES-GCM encryption and recover it using your passphrase.</p>
+
+    <label for="plainText">Message to encrypt</label>
+    <textarea
+        id="plainText"
+        rows="3"
+        placeholder="Type a sample secret message..."
+        style="width:100%;margin-top:10px;padding:12px;
+        background:#071426;color:#e5f3ff;border:1px solid #153b5b;
+        border-radius:7px;resize:vertical;font-family:Arial;"
+    ></textarea>
+
+    <label for="cryptoPassphrase" style="display:block;margin-top:14px;">
+        Encryption passphrase
+    </label>
+    <input
+        id="cryptoPassphrase"
+        type="password"
+        autocomplete="off"
+        placeholder="Create a strong demo passphrase"
+        style="width:100%;margin-top:8px;padding:12px;
+        background:#071426;color:#e5f3ff;border:1px solid #153b5b;
+        border-radius:7px;"
+    >
+
+    <button type="button" onclick="encryptMessage()">🔒 Encrypt Message</button>
+
+    <label for="encryptedOutput" style="display:block;margin-top:18px;">
+        Encrypted package
+    </label>
+    <textarea
+        id="encryptedOutput"
+        rows="5"
+        placeholder="Your encrypted package will appear here..."
+        style="width:100%;margin-top:8px;padding:12px;
+        background:#071426;color:#e5f3ff;border:1px solid #153b5b;
+        border-radius:7px;resize:vertical;font-family:monospace;"
+    ></textarea>
+
+    <button type="button" onclick="decryptMessage()">🔓 Decrypt Message</button>
+
+    <div id="cryptoResult"
+         role="status"
+         aria-live="polite"
+         style="margin-top:15px;color:#93b1cf;
+         font-size:13px;line-height:1.7;white-space:pre-wrap;">
+        Ready. Encrypt a sample message to begin.
+    </div>
+
+    <p style="margin-top:12px;color:#93b1cf;font-size:12px;">
+        Educational demo. Keep your passphrase private.
+        Anyone with both the encrypted package and passphrase can decrypt it.
+    </p>
+</section>
+
+
+        <section class="card tool" id="threatMonitor">
+            <h3>▤ Session Threat Monitor</h3>
+            <p>Watch security events generated by your lab actions. This feed reflects activity inside this page only.</p>
+            <div class="activity-feed">
+                <div class="feed-heading">
+                    <span>SECURITY EVENT STREAM</span>
+                    <span><span class="pulse-dot"></span> MONITORING</span>
+                </div>
+                <ul id="activityFeed" aria-live="polite">
+                    <li><span class="feed-time">BOOT</span><span class="feed-good">SYSTEM</span> — Monitoring initialized.</li>
+                </ul>
+            </div>
+            <p class="lab-note">Educational prototype: this page does not inspect your device or monitor real network traffic.</p>
+            <button type="button" onclick="addActivity('Manual monitor check completed.', 'good')">Run Health Check →</button>
+        </section>
+
+    </div>
+
+    <p id="message">
+        Loading browser ML model… Statistics count this browser session.
+    </p>
+
+</main>
+</div>
+
+<footer>
+    CyberShield &nbsp; | &nbsp; Learn. Analyse. Stay Safe.
+    <br><br>
+    Educational prototype — no real-world attacks are performed.
+</footer>
+
+<script>
+
+function openLab(name) {
+    const message = document.getElementById("message");
+
+    message.textContent =
+        name + " selected. Your security workspace is ready.";
+
+    message.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+// CyberShield dashboard state
+let totalScans = 0;
+let threatsDetected = 0;
+let highRiskScans = 0;
+let lowRiskScans = 0;
+let mediumRiskScans = 0;
+let recentScanEvents = [];
+
+let latestIncidentReport = "";
+// Visualisations use actual scans made during this browser session only.
+const scanHistory = [];
+let latestProbabilities = null;
+
+function drawScanTrend() {
+    const canvas = document.getElementById("scanTrend");
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const width = Math.max(280, rect.width);
+    const height = 190;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, width, height);
+
+    const pad = { left: 30, right: 12, top: 15, bottom: 27 };
+    const chartW = width - pad.left - pad.right;
+    const chartH = height - pad.top - pad.bottom;
+
+    ctx.font = "10px Segoe UI, Arial";
+    ctx.fillStyle = "#8192b5";
+    ctx.strokeStyle = "rgba(137,164,219,.14)";
+    ctx.lineWidth = 1;
+    [0, 25, 50, 75, 100].forEach(v => {
+        const y = pad.top + chartH * (1 - v / 100);
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(width - pad.right, y); ctx.stroke();
+        ctx.fillText(String(v), 4, y + 3);
+    });
+
+    if (!scanHistory.length) {
+        ctx.fillStyle = "#8295b9";
+        ctx.textAlign = "center";
+        ctx.fillText("Run a message scan to populate live session data", width / 2, height / 2);
+        ctx.textAlign = "left";
+        return;
+    }
+
+    const points = scanHistory.slice(-12);
+    const xAt = i => pad.left + (points.length === 1 ? chartW / 2 : chartW * i / (points.length - 1));
+    const yAt = v => pad.top + chartH * (1 - v / 100);
+
+    const gradient = ctx.createLinearGradient(0, pad.top, 0, height - pad.bottom);
+    gradient.addColorStop(0, "rgba(77,226,255,.24)");
+    gradient.addColorStop(1, "rgba(77,226,255,0)");
+    ctx.beginPath();
+    points.forEach((p, i) => i ? ctx.lineTo(xAt(i), yAt(p.confidence)) : ctx.moveTo(xAt(i), yAt(p.confidence)));
+    ctx.lineTo(xAt(points.length - 1), height - pad.bottom);
+    ctx.lineTo(xAt(0), height - pad.bottom);
+    ctx.closePath(); ctx.fillStyle = gradient; ctx.fill();
+
+    ctx.beginPath();
+    points.forEach((p, i) => i ? ctx.lineTo(xAt(i), yAt(p.confidence)) : ctx.moveTo(xAt(i), yAt(p.confidence)));
+    ctx.strokeStyle = "#4de2ff"; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.stroke();
+
+    points.forEach((p, i) => {
+        ctx.beginPath(); ctx.arc(xAt(i), yAt(p.confidence), 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = p.label === "PHISHING" ? "#ff6687" : p.label === "LEGITIMATE" ? "#55e6ad" : "#ffc46b";
+        ctx.fill(); ctx.strokeStyle = "#111d35"; ctx.lineWidth = 2; ctx.stroke();
+    });
+    ctx.fillStyle = "#8192b5";
+    ctx.textAlign = "left"; ctx.fillText("OLDER", pad.left, height - 7);
+    ctx.textAlign = "right"; ctx.fillText("LATEST", width - pad.right, height - 7);
+    document.getElementById("trendCount").textContent = scanHistory.length + " scan" + (scanHistory.length === 1 ? "" : "s") + " recorded";
+}
+
+function drawPredictionDonut(probabilities, label) {
+    const canvas = document.getElementById("predictionDonut");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = 190 * dpr; canvas.height = 190 * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, 190, 190);
+    const legit = probabilities ? probabilities.legitimate : 50;
+    const phish = probabilities ? probabilities.phishing : 50;
+    const start = -Math.PI / 2;
+    const end = start + Math.PI * 2 * legit / 100;
+    ctx.lineWidth = 13; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.arc(95, 95, 73, 0, Math.PI * 2); ctx.strokeStyle = "#263451"; ctx.stroke();
+    ctx.beginPath(); ctx.arc(95, 95, 73, start, end); ctx.strokeStyle = "#55e6ad"; ctx.stroke();
+    ctx.beginPath(); ctx.arc(95, 95, 73, end, start + Math.PI * 2); ctx.strokeStyle = "#ff6687"; ctx.stroke();
+    document.getElementById("donutConfidence").textContent = probabilities ? Math.max(legit, phish) + "%" : "—";
+    document.getElementById("donutLegit").textContent = probabilities ? legit + "%" : "—";
+    document.getElementById("donutPhish").textContent = probabilities ? phish + "%" : "—";
+    document.getElementById("latestModelLabel").textContent = label || "AWAITING SCAN";
+}
+
+function renderLiveVisuals() {
+    drawScanTrend();
+    drawPredictionDonut(latestProbabilities, scanHistory.length ? scanHistory[scanHistory.length - 1].label : "");
+}
+
+
+function updateThreatDistribution() {
+    const total = totalScans;
+    const groups = [
+        { key: "high", count: highRiskScans, label: "highRiskPercent", bar: "highRiskBar" },
+        { key: "medium", count: mediumRiskScans, label: "mediumRiskPercent", bar: "mediumRiskBar" },
+        { key: "low", count: lowRiskScans, label: "lowRiskPercent", bar: "lowRiskBar" }
+    ];
+    groups.forEach(group => {
+        const percent = total ? Math.round((group.count / total) * 100) : 0;
+        document.getElementById(group.label).textContent = `${percent}% (${group.count})`;
+        document.getElementById(group.bar).style.width = percent + "%";
+    });
+    document.getElementById("distributionNote").textContent = total
+        ? `Based on ${total} message scan${total === 1 ? "" : "s"} in this browser session.`
+        : "Scan messages to build a distribution from this browser session.";
+}
+
+function renderRecentAlerts() {
+    const container = document.getElementById("recentAlertsList");
+    if (!recentScanEvents.length) {
+        container.innerHTML = '<p class="subtitle">No scans yet. Results will appear here after you analyse a message.</p>';
+        return;
+    }
+    container.replaceChildren();
+    recentScanEvents.forEach(event => {
+        const item = document.createElement("div");
+        item.className = "alert";
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = event.severity;
+        tag.style.color = event.severity === "HIGH" ? "#ff526b" :
+                          event.severity === "MEDIUM" ? "#ffb347" : "#42e6a4";
+        item.append(tag, document.createTextNode(` Message scan: ${event.score}/100 risk`));
+        const small = document.createElement("small");
+        small.textContent = `${event.time} · ${event.findingsCount} warning sign${event.findingsCount === 1 ? "" : "s"} matched`;
+        item.appendChild(small);
+        container.appendChild(item);
+    });
+}
+
+// Local demo event stream: events are generated by this page only.
+function addActivity(message, level = "good") {
+    const feed = document.getElementById("activityFeed");
+    if (!feed) return;
+    const item = document.createElement("li");
+    const time = document.createElement("span");
+    time.className = "feed-time";
+    time.textContent = new Date().toLocaleTimeString();
+    const label = document.createElement("span");
+    label.className = level === "danger" ? "feed-danger" :
+                      level === "warn" ? "feed-warn" : "feed-good";
+    label.textContent = level === "danger" ? "HIGH" :
+                        level === "warn" ? "NOTICE" : "OK";
+    item.append(time, label, document.createTextNode(" — " + message));
+    feed.prepend(item);
+    while (feed.children.length > 8) feed.lastElementChild.remove();
+}
+
+function updateClock() {
+    const clock = document.getElementById("liveClock");
+    if (clock) clock.textContent = "LOCAL TIME " +
+        new Date().toLocaleTimeString([], { hour12: false });
+}
+updateClock();
+setInterval(updateClock, 1000);
+window.addEventListener("resize", renderLiveVisuals);
+renderLiveVisuals();
+addActivity("Dashboard ready. Demo event stream is active.", "good");
+
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.querySelectorAll("nav a").forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+    });
+});
+
+// Machine-learning prediction runs locally in this browser.
+// Browser-based Multinomial Naive Bayes engine.
+// The trained model is loaded from phishing_model.json; no API/server is used.
+let mlScanCount = 0, mlPhishingCount = 0, mlLegitimateCount = 0, mlUncertainCount = 0;
+
+const cyberShieldModelPromise = fetch("./phishing_model.json")
+    .then(response => {
+        if (!response.ok) throw new Error("Could not load phishing_model.json (" + response.status + ").");
+        return response.json();
+    })
+    .then(model => {
+        if (!model || !model.token_counts || !model.vocabulary || !model.class_docs) {
+            throw new Error("The model file has an unexpected format.");
+        }
+        document.getElementById("message").textContent =
+            "Browser ML engine online · " + model.training_samples +
+            " training samples · " + model.algorithm;
+        addActivity("Browser ML model loaded (" + model.training_samples + " training samples).", "good");
+        return model;
+    })
+    .catch(error => {
+        document.getElementById("message").textContent =
+            "ML model unavailable. Check that phishing_model.json is in the same folder as index.html.";
+        addActivity("ML model could not be loaded: " + error.message, "warn");
+        throw error;
+    });
+
+function tokenizeForModel(text) {
+    const words = text.toLowerCase().match(/[a-z0-9₹]+/g) || [];
+    const tokens = [...words];
+    for (let i = 0; i < words.length - 1; i++) {
+        tokens.push(words[i] + "_" + words[i + 1]);
+    }
+    return tokens;
+}
+
+async function predictInBrowser(message) {
+    const model = await cyberShieldModelPromise;
+    const vocabulary = new Set(model.vocabulary);
+    const tokens = tokenizeForModel(message).filter(token => vocabulary.has(token));
+
+    if (!tokens.length) {
+        return {
+            label: "UNCERTAIN",
+            confidence: 50.0,
+            probabilities: { legitimate: 50.0, phishing: 50.0 },
+            note: "The model found too little familiar language to make a useful prediction."
+        };
+    }
+
+    const alpha = 1.0;
+    const vocabSize = Math.max(1, model.vocabulary_size);
+    const scores = {};
+
+    for (const cls of [0, 1]) {
+        const key = String(cls);
+        const prior = model.class_docs[key] / model.training_samples;
+        const denominator = model.class_token_totals[key] + alpha * vocabSize;
+        let score = Math.log(prior);
+        const counts = model.token_counts[key];
+
+        for (const token of tokens) {
+            score += Math.log(((counts[token] || 0) + alpha) / denominator);
+        }
+        scores[cls] = score;
+    }
+
+    const maxScore = Math.max(scores[0], scores[1]);
+    const exp0 = Math.exp(scores[0] - maxScore);
+    const exp1 = Math.exp(scores[1] - maxScore);
+    const total = exp0 + exp1;
+    const pLegit = exp0 / total;
+    const pPhish = exp1 / total;
+    const label = pPhish >= 0.5 ? "PHISHING" : "LEGITIMATE";
+
+    return {
+        label,
+        confidence: Math.round(Math.max(pPhish, pLegit) * 1000) / 10,
+        probabilities: {
+            legitimate: Math.round(pLegit * 1000) / 10,
+            phishing: Math.round(pPhish * 1000) / 10
+        },
+        note: "Prediction from learned word and two-word frequency patterns. Confidence is not proof of safety."
+    };
+}
+
+function createBrowserIncidentId() {
+    const randomPart = (window.crypto && crypto.getRandomValues)
+        ? Array.from(crypto.getRandomValues(new Uint8Array(4)), b => b.toString(16).padStart(2, "0")).join("")
+        : Math.random().toString(16).slice(2, 10);
+    return "CS-" + randomPart.toUpperCase();
+}
+
+async function analyseMessage() {
+    const input = document.getElementById("sampleMessage");
+    const resultBox = document.getElementById("scanResult");
+    const message = input.value.trim();
+
+    if (!message) {
+        resultBox.textContent = "Please enter a message to analyse.";
+        return;
+    }
+    if (message.length > 10000) {
+        resultBox.textContent = "Message is too long (maximum 10,000 characters).";
+        resultBox.style.color = "#ffb347";
+        return;
+    }
+
+    resultBox.style.color = "#93b1cf";
+    resultBox.textContent = "Loading browser ML model and analysing message...";
+
+    try {
+        const data = await predictInBrowser(message);
+        mlScanCount++;
+
+        const isPhishing = data.label === "PHISHING";
+        if (isPhishing) mlPhishingCount++;
+        else if (data.label === "LEGITIMATE") mlLegitimateCount++;
+        else mlUncertainCount++;
+
+        const colour = isPhishing ? "#ff526b" :
+            data.label === "LEGITIMATE" ? "#42e6a4" : "#ffb347";
+        const time = new Date().toLocaleTimeString();
+        latestProbabilities = data.probabilities;
+        scanHistory.push({ label: data.label, confidence: data.confidence, time });
+        renderLiveVisuals();
+        recentScanEvents.unshift({severity: data.label, score: data.confidence, time});
+        recentScanEvents = recentScanEvents.slice(0, 5);
+
+        document.getElementById("scans").textContent = mlScanCount;
+        document.getElementById("threats").textContent = mlPhishingCount;
+        document.getElementById("highRiskScans").textContent = mlPhishingCount;
+        document.getElementById("lowRiskRate").textContent =
+            mlScanCount ? Math.round(mlLegitimateCount / mlScanCount * 100) + "%" : "—";
+
+        const highPct = Math.round(mlPhishingCount / mlScanCount * 100);
+        const legitPct = Math.round(mlLegitimateCount / mlScanCount * 100);
+        const uncertainPct = Math.round(mlUncertainCount / mlScanCount * 100);
+        document.getElementById("highRiskPercent").textContent = highPct + "% (" + mlPhishingCount + ")";
+        document.getElementById("mediumRiskPercent").textContent = uncertainPct + "% (" + mlUncertainCount + ")";
+        document.getElementById("lowRiskPercent").textContent = legitPct + "% (" + mlLegitimateCount + ")";
+        document.getElementById("highRiskBar").style.width = highPct + "%";
+        document.getElementById("mediumRiskBar").style.width = uncertainPct + "%";
+        document.getElementById("lowRiskBar").style.width = legitPct + "%";
+        document.getElementById("distributionNote").textContent =
+            "Based on browser ML predictions in this session.";
+
+        const alerts = document.getElementById("recentAlertsList");
+        alerts.replaceChildren();
+        recentScanEvents.forEach(ev => {
+            const item = document.createElement("div");
+            item.className = "alert";
+            const tag = document.createElement("span");
+            tag.className = "tag";
+            tag.textContent = ev.severity;
+            tag.style.color = ev.severity === "PHISHING" ? "#ff526b" :
+                ev.severity === "LEGITIMATE" ? "#42e6a4" : "#ffb347";
+            item.append(tag, document.createTextNode(" Model confidence: " + ev.score + "%"));
+            const small = document.createElement("small");
+            small.textContent = ev.time;
+            item.appendChild(small);
+            alerts.appendChild(item);
+        });
+
+        addActivity("Browser ML prediction: " + data.label + " (" + data.confidence + "% confidence).",
+            isPhishing ? "danger" : data.label === "LEGITIMATE" ? "good" : "warn");
+
+        const incidentId = createBrowserIncidentId();
+        const timestamp = new Date().toISOString();
+        const p = data.probabilities;
+        const advice = isPhishing
+            ? "Treat this message as suspicious. Do not open unexpected links or share sensitive information; verify independently."
+            : "The model classified this as legitimate, but this is not a safety guarantee. Verify unexpected requests independently.";
+
+        latestIncidentReport =
+            "CYBERSHIELD — MACHINE-LEARNING SCAN REPORT\n" +
+            "==========================================\n" +
+            "Incident ID: " + incidentId + "\nTimestamp: " + timestamp + "\n" +
+            "Prediction: " + data.label + "\nConfidence: " + data.confidence + "%\n" +
+            "Legitimate probability: " + p.legitimate + "%\nPhishing probability: " + p.phishing + "%\n\n" +
+            "MESSAGE ANALYSED\n----------------\n" + message + "\n\n" +
+            "MODEL\n-----\nMultinomial Naive Bayes trained from the included labelled message dataset.\n" +
+            "No hand-written keyword weights or rule-based score are used for this prediction.\n\n" +
+            "LIMITATIONS\n-----------\nThis is a small educational training corpus. It can make mistakes and may not generalize to new scam styles, languages, or contexts. Confidence is not a guarantee. It does not inspect URLs, sender identity, attachments, or live threat intelligence.\n\n" +
+            "RECOMMENDED ACTION\n------------------\n" + advice + "\n";
+
+        resultBox.style.color = colour;
+        resultBox.textContent =
+            "MACHINE-LEARNING PREDICTION: " + data.label + "\n" +
+            "MODEL CONFIDENCE: " + data.confidence + "%\n\n" +
+            "LEGITIMATE: " + p.legitimate + "%\nPHISHING: " + p.phishing + "%\n\n" +
+            data.note + "\n\n" + advice;
+
+        document.getElementById("reportPreview").textContent =
+            "Incident: " + incidentId + "\nPrediction: " + data.label +
+            "\nConfidence: " + data.confidence + "%\n\n" + advice;
+        document.getElementById("copyReportButton").disabled = false;
+        document.getElementById("downloadReportButton").disabled = false;
+    } catch (error) {
+        resultBox.style.color = "#ffb347";
+        resultBox.textContent =
+            "The browser ML model could not run. Make sure phishing_model.json is uploaded beside index.html.\n\n" +
+            "Technical detail: " + error.message;
+    }
+}
+
+async function copyIncidentReport() {
+    if (!latestIncidentReport) return;
+    try {
+        await navigator.clipboard.writeText(latestIncidentReport);
+        document.getElementById("reportPreview").textContent += "\n\n✓ Report copied to clipboard.";
+    } catch (error) {
+        // Fallback for browsers where clipboard access is restricted.
+        const helper = document.createElement("textarea");
+        helper.value = latestIncidentReport;
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand("copy");
+        helper.remove();
+        document.getElementById("reportPreview").textContent += copied
+            ? "\n\n✓ Report copied to clipboard."
+            : "\n\nClipboard access was blocked. Use Download .txt instead.";
+    }
+}
+
+function downloadIncidentReport() {
+    if (!latestIncidentReport) return;
+    const blob = new Blob([latestIncidentReport], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "CyberShield-Incident-Report.txt";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    addActivity("Incident report downloaded.", "good");
+}
+
+function checkPassword() {
+    const password =
+        document.getElementById("passwordInput").value;
+
+    const label =
+        document.getElementById("strengthLabel");
+
+    const bar =
+        document.getElementById("strengthBar");
+
+    const checks =
+        document.getElementById("passwordChecks");
+
+    if (!password) {
+        label.textContent = "Strength: Not tested";
+        bar.style.width = "0%";
+        checks.textContent =
+            "Enter a password to begin the security assessment.";
+        return;
+    }
+
+    const rules = [
+        {
+            name: "At least 12 characters",
+            passed: password.length >= 12
+        },
+        {
+            name: "Contains uppercase letters",
+            passed: /[A-Z]/.test(password)
+        },
+        {
+            name: "Contains lowercase letters",
+            passed: /[a-z]/.test(password)
+        },
+        {
+            name: "Contains numbers",
+            passed: /[0-9]/.test(password)
+        },
+        {
+            name: "Contains symbols",
+            passed: /[^A-Za-z0-9]/.test(password)
+        }
+    ];
+
+    const passedCount =
+        rules.filter(rule => rule.passed).length;
+
+    let strength;
+    let colour;
+    let percentage;
+
+    if (password.length < 8 || passedCount <= 2) {
+        strength = "Weak";
+        colour = "#ff526b";
+        percentage = 25;
+    } else if (passedCount === 3) {
+        strength = "Fair";
+        colour = "#ffb347";
+        percentage = 50;
+    } else if (passedCount === 4) {
+        strength = "Good";
+        colour = "#53b7ff";
+        percentage = 75;
+    } else {
+        strength = "Strong";
+        colour = "#42e6a4";
+        percentage = 100;
+    }
+
+    label.textContent = "Strength: " + strength;
+    label.style.color = colour;
+    addActivity("Password assessment updated: " + strength + " strength.", 
+                strength === "Weak" ? "warn" : "good");
+
+    bar.style.width = percentage + "%";
+    bar.style.background = colour;
+
+    checks.innerHTML = rules.map(rule =>
+        `<div style="margin:8px 0;color:${
+            rule.passed ? "#42e6a4" : "#ffb347"
+        }">
+            ${rule.passed ? "✓" : "○"} ${rule.name}
+        </div>`
+    ).join("");
+
+    if (password.length < 12) {
+        checks.innerHTML +=
+            '<p style="color:#ffb347;">' +
+            'Tip: Longer passwords or passphrases are generally ' +
+            'harder to guess.</p>';
+    }
+}
+
+function togglePasswordVisibility() {
+    const input =
+        document.getElementById("passwordInput");
+
+    const checkbox =
+        document.getElementById("showPassword");
+
+    input.type = checkbox.checked ? "text" : "password";
+}
+
+
+async function deriveEncryptionKey(passphrase, salt) {
+    const encoder = new TextEncoder();
+
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        encoder.encode(passphrase),
+        "PBKDF2",
+        false,
+        ["deriveKey"]
+    );
+
+    return crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 250000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        {
+            name: "AES-GCM",
+            length: 256
+        },
+        false,
+        ["encrypt", "decrypt"]
+    );
+}
+
+function bytesToBase64(bytes) {
+    let binary = "";
+    for (const byte of bytes) {
+        binary += String.fromCharCode(byte);
+    }
+    return btoa(binary);
+}
+
+function base64ToBytes(value) {
+    const binary = atob(value);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    return bytes;
+}
+
+function showCryptoResult(message, colour = "#93b1cf") {
+    const box = document.getElementById("cryptoResult");
+    box.textContent = message;
+    box.style.color = colour;
+}
+
+async function encryptMessage() {
+    const message = document.getElementById("plainText").value;
+    const passphrase =
+        document.getElementById("cryptoPassphrase").value;
+
+    if (!message) {
+        showCryptoResult("Please enter a message to encrypt.", "#ffb347");
+        return;
+    }
+
+    if (passphrase.length < 12) {
+        showCryptoResult(
+            "Use a passphrase of at least 12 characters for this demo.",
+            "#ffb347"
+        );
+        return;
+    }
+
+    if (!window.crypto || !window.crypto.subtle) {
+        showCryptoResult(
+            "Web Crypto is unavailable here. Open the page in a supported browser through localhost or HTTPS.",
+            "#ff526b"
+        );
+        return;
+    }
+
+    try {
+        showCryptoResult("Encrypting securely...");
+
+        const encoder = new TextEncoder();
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const key = await deriveEncryptionKey(passphrase, salt);
+
+        const encrypted = await crypto.subtle.encrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            encoder.encode(message)
+        );
+
+        const packageData = {
+            version: 1,
+            algorithm: "AES-256-GCM",
+            kdf: "PBKDF2-SHA256",
+            iterations: 250000,
+            salt: bytesToBase64(salt),
+            iv: bytesToBase64(iv),
+            ciphertext: bytesToBase64(new Uint8Array(encrypted))
+        };
+
+        document.getElementById("encryptedOutput").value =
+            JSON.stringify(packageData, null, 2);
+
+        showCryptoResult(
+            "✓ Encryption successful!\n" +
+            "Algorithm: AES-256-GCM\n" +
+            "Key derivation: PBKDF2-SHA-256\n" +
+            "A random salt and IV were generated.\n" +
+            "Keep your passphrase safe to decrypt this package.",
+            "#42e6a4"
+        );
+    } catch (error) {
+        showCryptoResult(
+            "Encryption failed. Check browser support and try again.",
+            "#ff526b"
+        );
+    }
+}
+
+async function decryptMessage() {
+    const passphrase =
+        document.getElementById("cryptoPassphrase").value;
+    const output = document.getElementById("encryptedOutput").value;
+
+    if (!passphrase || !output.trim()) {
+        showCryptoResult(
+            "Enter the original passphrase and an encrypted package.",
+            "#ffb347"
+        );
+        return;
+    }
+
+    if (!window.crypto || !window.crypto.subtle) {
+        showCryptoResult(
+            "Web Crypto is unavailable. Open the page through localhost or HTTPS.",
+            "#ff526b"
+        );
+        return;
+    }
+
+    try {
+        showCryptoResult("Decrypting and verifying...");
+
+        const data = JSON.parse(output);
+
+        if (
+            data.version !== 1 ||
+            data.algorithm !== "AES-256-GCM" ||
+            data.kdf !== "PBKDF2-SHA256" ||
+            data.iterations !== 250000 ||
+            typeof data.salt !== "string" ||
+            typeof data.iv !== "string" ||
+            typeof data.ciphertext !== "string"
+        ) {
+            throw new Error("Unsupported package format");
+        }
+
+        const salt = base64ToBytes(data.salt);
+        const iv = base64ToBytes(data.iv);
+        const ciphertext = base64ToBytes(data.ciphertext);
+
+        if (salt.length !== 16 || iv.length !== 12 ||
+            ciphertext.length < 16) {
+            throw new Error("Invalid package");
+        }
+
+        const key = await deriveEncryptionKey(passphrase, salt);
+
+        const decrypted = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            ciphertext
+        );
+
+        const message = new TextDecoder("utf-8", { fatal: true })
+            .decode(decrypted);
+
+        showCryptoResult(
+            "✓ Decryption successful!\n\nOriginal message:\n" + message,
+            "#42e6a4"
+        );
+    } catch (error) {
+        addActivity("Decryption attempt failed verification.", "danger");
+        showCryptoResult(
+            "Decryption failed. The passphrase may be incorrect, " +
+            "or the encrypted package may be invalid or modified.",
+            "#ff526b"
+        );
+    }
+}
+
+
+</script>
+
+
+</body>
+</html>

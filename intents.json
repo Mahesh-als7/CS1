@@ -1,0 +1,304 @@
+{
+  "greeting": {
+    "patterns": [
+      "hi",
+      "hie",
+      "hello",
+      "hey",
+      "hey there",
+      "hello there",
+      "good morning",
+      "good afternoon",
+      "good evening",
+      "yo",
+      "hiya",
+      "what's up",
+      "sup",
+      "howdy",
+      "hola",
+      "is anyone there",
+      "hey cybershield",
+      "hi assistant"
+    ],
+    "responses": [
+      "Hey! Good to see you. What would you like to talk about?",
+      "Hi there! I'm CyberShield AI. How can I help?",
+      "Hello! Ask me something about cybersecurity, or just say hi."
+    ]
+  },
+  "how_are_you": {
+    "patterns": [
+      "how are you",
+      "how are you doing",
+      "how's it going",
+      "are you okay",
+      "how have you been",
+      "what's going on",
+      "how are things",
+      "you doing good",
+      "how do you feel"
+    ],
+    "responses": [
+      "I'm running smoothly and ready to help. How are you?",
+      "Doing well in chatbot terms! What can I help you with?",
+      "All systems ready. What's on your mind?"
+    ]
+  },
+  "identity": {
+    "patterns": [
+      "who are you",
+      "what are you",
+      "tell me about yourself",
+      "what is cybershield ai",
+      "are you a bot",
+      "are you human",
+      "what can you do",
+      "what do you do"
+    ],
+    "responses": [
+      "I'm CyberShield AI, a small machine-learning chatbot built for this cybersecurity project. I classify messages into known intents and choose a suitable response.",
+      "I'm the CyberShield assistant. I can chat casually and answer a set of basic cybersecurity questions."
+    ]
+  },
+  "thanks": {
+    "patterns": [
+      "thanks",
+      "thank you",
+      "thank you so much",
+      "thx",
+      "appreciate it",
+      "that helped",
+      "you're helpful",
+      "great help",
+      "nice one"
+    ],
+    "responses": [
+      "You're welcome!",
+      "No problem. Happy to help.",
+      "Anytime! Let me know if you have another question."
+    ]
+  },
+  "goodbye": {
+    "patterns": [
+      "bye",
+      "goodbye",
+      "see you",
+      "see ya",
+      "talk later",
+      "i am leaving",
+      "gotta go",
+      "catch you later",
+      "take care"
+    ],
+    "responses": [
+      "See you! Stay safe online.",
+      "Goodbye! Remember to think before you click.",
+      "Take care. I'll be here when you need cybersecurity help."
+    ]
+  },
+  "joke": {
+    "patterns": [
+      "tell me a joke",
+      "make me laugh",
+      "say something funny",
+      "do you know a joke",
+      "joke please",
+      "cheer me up"
+    ],
+    "responses": [
+      "Why did the computer go to the doctor? It caught a virus.",
+      "I told my password it needed to be stronger. It took that personally.",
+      "Why was the laptop cold? It left its Windows open."
+    ]
+  },
+  "phishing_definition": {
+    "patterns": [
+      "what is phishing",
+      "explain phishing",
+      "define phishing",
+      "what does phishing mean",
+      "tell me about phishing",
+      "what is a phishing attack",
+      "phishing meaning"
+    ],
+    "responses": [
+      "Phishing is a type of online scam where someone pretends to be a trusted person or organisation to trick people into sharing information or clicking unsafe links.",
+      "Phishing messages often imitate banks, delivery services or familiar organisations. Their goal is to trick the recipient."
+    ]
+  },
+  "phishing_signs": {
+    "patterns": [
+      "how do i identify phishing",
+      "how to spot a phishing message",
+      "signs of phishing",
+      "is this message suspicious",
+      "how can i detect a scam message",
+      "how to recognise phishing",
+      "how do i know if a link is fake"
+    ],
+    "responses": [
+      "Look for unexpected urgency, requests for passwords or one-time codes, unfamiliar sender addresses, unusual links, and unexpected attachments. Verify through the organisation's official website or app.",
+      "Check the sender carefully, preview links without opening them, and be cautious of urgent requests for personal or financial information."
+    ]
+  },
+  "malware": {
+    "patterns": [
+      "what is malware",
+      "explain malware",
+      "what does malware do",
+      "define malicious software",
+      "types of malware",
+      "tell me about computer viruses"
+    ],
+    "responses": [
+      "Malware is software designed to harm a device, disrupt its operation, or access information without permission. Viruses, worms, trojans and ransomware are examples.",
+      "Malware is a broad term for harmful software. Avoid unknown downloads and keep your operating system and apps updated."
+    ]
+  },
+  "ransomware": {
+    "patterns": [
+      "what is ransomware",
+      "explain ransomware",
+      "how does ransomware work",
+      "ransomware meaning"
+    ],
+    "responses": [
+      "Ransomware is a type of malware that can lock or encrypt files and demand payment. Keep reliable backups and avoid suspicious attachments and downloads."
+    ]
+  },
+  "password_safety": {
+    "patterns": [
+      "how to make a strong password",
+      "how do i create a strong password",
+      "password safety tips",
+      "what makes a password strong",
+      "how can i protect my password",
+      "give me password tips",
+      "how to secure my account"
+    ],
+    "responses": [
+      "Use a long, unique password or passphrase for each account. A password manager can help, and multi-factor authentication adds another layer of protection. Never share one-time codes.",
+      "Avoid reusing passwords. Turn on multi-factor authentication where possible and be alert for fake sign-in pages."
+    ]
+  },
+  "encryption": {
+    "patterns": [
+      "what is encryption",
+      "explain encryption",
+      "why is encryption important",
+      "define encryption",
+      "how does encryption protect data"
+    ],
+    "responses": [
+      "Encryption transforms readable information into a form that can only be read with the appropriate key. It helps protect data while it is stored or transmitted.",
+      "Encryption helps keep information confidential by making it unreadable to anyone without the correct key."
+    ]
+  },
+  "firewall": {
+    "patterns": [
+      "what is a firewall",
+      "explain firewall",
+      "why do we need a firewall",
+      "how does firewall work",
+      "define firewall"
+    ],
+    "responses": [
+      "A firewall monitors and controls network traffic according to security rules. It can help block unwanted connections, but it is only one part of a security setup."
+    ]
+  },
+  "safe_browsing": {
+    "patterns": [
+      "how to browse safely",
+      "internet safety tips",
+      "how can i stay safe online",
+      "online safety tips",
+      "how do i protect myself online",
+      "safe internet practices"
+    ],
+    "responses": [
+      "Keep your browser and device updated, use strong unique passwords, enable multi-factor authentication, check website addresses, and avoid unexpected downloads or links.",
+      "Use trusted websites, think carefully before sharing personal information, and verify surprising messages through an official channel."
+    ]
+  },
+  "cybershield_detector": {
+    "patterns": [
+      "what does the phishing detector do",
+      "how does cybershield detect phishing",
+      "explain the scanner",
+      "what is the message scanner",
+      "how does your ml model work",
+      "how does this project work"
+    ],
+    "responses": [
+      "CyberShield's phishing detector uses a trained text-classification model to estimate whether a message resembles phishing or legitimate examples in its training data. It is an educational aid, not a guarantee.",
+      "The scanner analyses the text and uses its trained machine-learning model to produce a prediction. Always verify suspicious messages independently."
+    ]
+  },
+  "false_positive": {
+    "patterns": [
+      "can the detector be wrong",
+      "is the prediction always correct",
+      "what is a false positive",
+      "can it make mistakes",
+      "how accurate is the scanner",
+      "should i trust the result"
+    ],
+    "responses": [
+      "Yes. Machine-learning predictions can be wrong, especially on messages unlike the training examples. Treat the result as a warning signal, not proof. Verify the sender and link independently.",
+      "A false positive happens when a legitimate message is flagged. A false negative happens when a suspicious message is missed. No text classifier is perfect."
+    ]
+  },
+  "one_time_password": {
+    "patterns": [
+      "should i share my otp",
+      "can i tell someone my one time password",
+      "is it safe to share verification codes",
+      "what if someone asks for my otp",
+      "otp safety"
+    ],
+    "responses": [
+      "Never share your one-time password or verification code with another person, even if they claim to be from a bank or support team. Enter it only in the official service you intended to use."
+    ]
+  },
+  "report_scam": {
+    "patterns": [
+      "what should i do if i receive a scam message",
+      "i clicked a phishing link what now",
+      "i shared my password by mistake",
+      "how do i report phishing",
+      "what if i got scammed"
+    ],
+    "responses": [
+      "Stop interacting with the message. If you shared a password, change it through the official website or app, and enable multi-factor authentication. If money or financial details are involved, contact your bank promptly and use your country's official cybercrime reporting channel.",
+      "Don't reply or forward sensitive information. Save relevant details, contact the affected service through its official channel, and ask a trusted adult for help if you need it."
+    ]
+  },
+  "capabilities_limit": {
+    "patterns": [
+      "can you answer anything",
+      "do you know everything",
+      "why can't you answer my question",
+      "are you generative ai",
+      "do you understand every sentence",
+      "how intelligent are you"
+    ],
+    "responses": [
+      "I don't know everything. I'm a small intent-classification model trained on examples for a limited set of topics. If your question doesn't match those topics, I may ask you to rephrase or tell you I don't know.",
+      "I'm not a generative AI model. I classify the message into a learned category and select a prepared response."
+    ]
+  },
+  "fallback": {
+    "patterns": [
+      "tell me about quantum computing",
+      "what is the capital of france",
+      "write me a poem",
+      "who won the match",
+      "random question please",
+      "can you help me with something else"
+    ],
+    "responses": [
+      "I'm not sure I understood that. I can chat casually or answer basic cybersecurity questions. Try asking in a different way.",
+      "That's outside what I've been trained to answer so far. Try a greeting or a cybersecurity question."
+    ]
+  }
+}
